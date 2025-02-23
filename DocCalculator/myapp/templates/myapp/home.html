@@ -1,0 +1,103 @@
+﻿{% extends 'myapp/index.html' %}
+
+{% block content %}
+
+<h1>Общая информация</h1>
+
+<ul>
+    <li>Количество абонентов: {{ subscriber_count }}</li>
+    <li>Сумма всех договоров: {{ total_contract_sum }}</li>
+    <li>Общее количество узлов: {{ total_nodes }}</li>
+    <li>Общее количество узлов ГВС: {{ total_hws_nodes }}</li>
+    <li>Общее количество узлов отопления: {{ total_heating_nodes }}</li>
+    <li>Количество узлов ГВС со скидкой 50%: {{ total_hws_discount }}</li>
+    <li>Количество узлов отопления: {{ total_heating_nodes }}</li>
+    <li>Количество узлов отопления со скидкой: {{ total_heating_discount }}</li>
+    <li>Количество узлов автоматики ГВС: {{ total_automation_hws }}</li>
+    <li>Количество узлов автоматики ГВС со скидкой: {{ total_automation_hws_discount }}</li>
+    <li>Количество узлов автоматики отопления: {{ total_automation_heating }}</li>
+    <li>Количество узлов автоматики отопления со скидкой: {{ total_automation_heating_discount }}</li>
+    <li>Количество узлов учета до 4-х лет: {{ total_four_year_nodes }}</li>
+</ul>
+
+{% if top_subscribers_up %}
+<div class="info-container">
+    <div class="info-block">
+        <h2>Самая высокая прибыль</h2>
+        {% if top_subscribers_up %}
+        <ol>
+            {% for subscriber in top_subscribers_up %}
+            <li>
+                <strong>{{ subscriber.short_name }}</strong><br>
+                Номер договора: {{ subscriber.i_number }}<br>
+                Сумма обслуживания: {{ subscriber.total_cost }} руб.<br>
+                Адрес: {{ subscriber.street }}, дом {{ subscriber.house }}
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <p>Нет данных для отображения.</p>
+        {% endif %}
+    </div>
+
+    <div class="info-block">
+        <h2>Самая низкая прибыль</h2>
+        {% if top_subscribers_down %}
+        <ol>
+            {% for subscriber in top_subscribers_down %}
+            <li>
+                <strong>{{ subscriber.short_name }}</strong><br>
+                Номер договора: {{ subscriber.i_number }}<br>
+                Сумма обслуживания: {{ subscriber.total_cost }} руб.<br>
+                Адрес: {{ subscriber.street }}, дом {{ subscriber.house }}
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <p>Нет данных для отображения.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% else %}
+<p>Нет данных для отображения.</p>
+{% endif %}
+<br>
+<h3>Статистика изменения стоимости услуг</h3>
+<h4>В процентном соотношении в сравнении с годом ранее.</h4>
+{% for stat in statistics %}
+<ul>
+    <li>Год действия калькуляции: {{ stat.date }}</li>
+    <li>
+        {% if stat.service_node_modem_change is not None %}
+        Приборы учета тепловой энергии с автоматизированной передачей данных: {{ stat.service_node_modem_change }}%
+        {% else %}
+        N/A
+        {% endif %}
+    </li>
+    <li>
+        {% if stat.service_node_no_modem_change is not None %}
+        Приборы учета тепловой энергии без автоматизированной передичи данных: {{ stat.service_node_no_modem_change }}%
+        {% else %}
+        N/A
+        {% endif %}
+    </li>
+    <li>
+        {% if stat.automation_node_change is not None %}
+        Приборы автоматического управления и регулирования: {{ stat.automation_node_change }}%
+        {% else %}
+        N/A
+        {% endif %}
+    </li>
+    <li>
+        {% if stat.service_four_year_node_change is not None %}
+        Приборы учета до 4-х лет: {{ stat.service_four_year_node_change }}%
+        {% else %}
+        N/A
+        {% endif %}
+    </li>
+</ul>
+<br>
+{% endfor %}
+
+{% endblock %}

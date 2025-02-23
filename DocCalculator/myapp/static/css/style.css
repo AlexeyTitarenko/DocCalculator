@@ -1,0 +1,224 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Общие стили для навигации */
+.navigation-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start; /* Расположение элементов по горизонтали */
+    background-color: #f8f9fa; /* Светлый фон */
+    border-bottom: 1px solid #ddd; /* Тонкая линия снизу */
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 62px;
+    position: fixed; /* Используем фиксированное позиционирование */
+    top: 0; /* Меню будет всегда вверху */
+    left: 0;
+    width: 100%;
+    z-index: 100; /* Устанавливаем высокий z-index, чтобы меню было поверх контента */
+    box-shadow: 0 4px 2px -2px gray; /* Добавляем тень для отделения меню от контента */
+}
+
+.navigation-menu li {
+    margin-right: 20px; /* Отступы между элементами */
+}
+
+.navigation-menu li a {
+    text-decoration: none;
+    color: #333; /* Тёмно-серый цвет для текста */
+    font-weight: 600; /* Жирное начертание для выделения */
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Плавные переходы */
+}
+
+            /* Подсветка при наведении */
+.navigation-menu li a:hover {
+    background-color: #007bff; /* Синий фон при наведении */
+    color: white; /* Белый цвет текста */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+            /* Стили для активного состояния */
+.navigation-menu li a.active {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Основной блок */
+main {
+    padding-top: 60px; /* Добавили отступ сверху, чтобы контент не перекрывался меню */
+}
+
+/* Контейнер для содержимого */
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* === Общие стили === */
+body {
+    font-family: Arial, sans-serif; /* Деловой, лаконичный шрифт */
+    background-color: #f4f4f4; /* Светло-серый фон для всей страницы */
+    margin: 0;
+    padding: 0;
+    color: #333; /* Основной цвет текста */
+}
+
+/* === Основной контейнер для контента === */
+.container {
+    max-width: 1200px;
+    margin: 20px auto; /* Центрируем контент */
+    background: white;
+    padding: 20px;
+    border-radius: 8px; /* Небольшие скругления для блока */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+/* === Заголовки === */
+h1 {
+    font-size: 28px;
+    color: #222; /* Чуть темнее для контраста */
+    border-bottom: 2px solid #007bff; /* Добавляем подчеркивание */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #444;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 20px;
+    color: #666;
+    margin-top: 25px;
+}
+
+/* === Таблицы === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+/* === Списки === */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* === Кнопки === */
+button, .btn {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    button:hover, .btn:hover {
+        background: #0056b3;
+    }
+
+/* === Формы === */
+input, select {
+    width: 98%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* === Сообщения об ошибках === */
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.flex-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Стили для кнопок */
+.save-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+.info-container {
+    display: flex; /* Flexbox для расположения элементов рядом */
+    justify-content: space-between; /* Распределяет пространство между блоками */
+}
+
+.info-block {
+    width: 48%; /* Задаем ширину каждому блоку, чтобы они умещались рядом */
+    padding-left: 150px;
+}
+
+h2 {
+    width: 100%; /* Задаем ширину для заголовков, чтобы они занимали всю ширину контейнера */
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+}
+

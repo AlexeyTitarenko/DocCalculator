@@ -1,0 +1,236 @@
+﻿{% extends 'myapp/index.html' %}
+
+{% block content %}
+<h2>Рассчитать новый договор</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}    
+    <button type="submit" name="calculate">Рассчитать</button>    
+</form>
+
+{% if calculated_data %}
+<h3>Результаты расчета:</h3>
+<ul>
+    <li>        
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th>Описание</th>
+                    <th>Ед. изм.</th>
+                    <th>Кол-во</th>
+                    <th>Стоимость ед.</th>
+                    <th>Итого в месяц</th>
+                </tr>
+                {% if calculated_data.hws_node_modem_discount_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета ГВС/общих с автоматической передачей данных со скидкой</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.hws_node_modem_discount_count }}</td>
+                    <td>{{ calculated_data.cost_per_hws_node_modem_discount }}</td>
+                    <td>{{ calculated_data.hws_node_modem_discount_month }}</td>
+                </tr>
+                {% endif %}
+
+                {% if calculated_data.hws_node_modem_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета ГВС/общих с автоматической передачей данных</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.hws_node_modem_count }}</td>
+                    <td>{{ calculated_data.cost_per_hws_node_modem }}</td>
+                    <td>{{ calculated_data.hws_node_modem_month }}</td>
+                </tr>
+                {% endif %}
+
+                {% if calculated_data.heating_node_modem_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета отопления с автоматической передачей данных</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.heating_node_modem_count }}</td>
+                    <td>{{ calculated_data.cost_per_heating_node_modem }}</td>
+                    <td>{{ calculated_data.heating_node_modem_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.heating_node_modem_discount_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета отопления с автоматической передачей данных со скидкой</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.heating_node_modem_discount_count }}</td>
+                    <td>{{ calculated_data.cost_per_heating_node_modem_discount }}</td>
+                    <td>{{ calculated_data.heating_node_modem_discount_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.hws_node_no_modem_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета ГВС/общих без автоматической передачи данных</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.hws_node_no_modem_count }}</td>
+                    <td>{{ calculated_data.cost_per_hws_node_no_modem }}</td>
+                    <td>{{ calculated_data.hws_node_no_modem_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.hws_node_no_modem_discount_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета ГВС/общих без автоматической передачи данных со скидкой</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.hws_node_no_modem_discount_count }}</td>
+                    <td>{{ calculated_data.cost_per_hws_node_no_modem_discount }}</td>
+                    <td>{{ calculated_data.hws_node_no_modem_discount_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.heating_node_no_modem_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета отопления без автоматической передачи данных</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.heating_node_no_modem_count }}</td>
+                    <td>{{ calculated_data.cost_per_heating_node_no_modem }}</td>
+                    <td>{{ calculated_data.heating_node_no_modem_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.heating_node_no_modem_discount_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов учета отопления без автоматической передачи данных со скидкой</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.heating_node_no_modem_discount_count }}</td>
+                    <td>{{ calculated_data.cost_per_heating_node_no_modem_discount }}</td>
+                    <td>{{ calculated_data.heating_node_no_modem_discount_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.hws_automation_node_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов автоматического регулирования ГВС</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.hws_automation_node_count }}</td>
+                    <td>{{ calculated_data.cost_per_automation_node }}</td>
+                    <td>{{ calculated_data.hws_automation_node_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.hws_automation_node_discount_count > 0 %}
+                <tr>
+                    <td>Техническое обслуживание узлов автоматического регулирования ГВС со скидкой</td>
+                    <td>Компл.</td>
+                    <td>{{ calculated_data.hws_automation_node_discount_count }}</td>
+                    <td>{{ calculated_data.cost_per_automation_node_discount }}</td>
+                    <td>{{ calculated_data.hws_automation_node_discount_month }}</td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.heating_automation_node_count > 0 %}
+                <tr>
+                    <td>
+                        Техническое обслуживание узлов автоматического регулирования отопления
+                    </td>
+                    <td>
+                        Компл.
+                    </td>
+                    <td>
+                        {{ calculated_data.heating_automation_node_count }}
+                    </td>
+                    <td>
+                        {{ calculated_data.cost_per_automation_node }}
+                    </td>
+                    <td>
+                        {{ calculated_data.heating_automation_node_month }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.heating_automation_node_discount_count > 0 %}
+                <tr>
+                    <td>
+                        Техническое обслуживание узлов автоматического регулирования отопления со скидкой
+                    </td>
+                    <td>
+                        Компл.
+                    </td>
+                    <td>
+                        {{ calculated_data.heating_automation_node_discount_count }}
+                    </td>
+                    <td>
+                        {{ calculated_data.cost_per_automation_node_discount }}
+                    </td>
+                    <td>
+                        {{ calculated_data.heating_automation_node_discount_month }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.hws_four_year_node_count > 0 %}
+                <tr>
+                    <td>
+                        Техническое обслуживание узлов ГВС/общих до 4-х лет
+                    </td>
+                    <td>
+                        Компл.
+                    </td>
+                    <td>
+                        {{ calculated_data.hws_four_year_node_count }}
+                    </td>
+                    <td>
+                        {{ calculated_data.cost_per_four_year_node }}
+                    </td>
+                    <td>
+                        {{ calculated_data.hws_four_year_node_month }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if calculated_data.heating_four_year_node_count > 0 %}
+                <tr>
+                    <td>
+                        Техническое обслуживание узлов отопления до 4-х лет
+                    </td>
+                    <td>
+                        Компл.
+                    </td>
+                    <td>
+                        {{ calculated_data.heating_four_year_node_count }}
+                    </td>
+                    <td>
+                        {{ calculated_data.cost_per_four_year_node }}
+                    </td>
+                    <td>
+                        {{ calculated_data.heating_four_year_node_month }}
+                    </td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Итого
+                    </td>
+                    <td>
+                        {{ calculated_data.total_cost_month }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Сумма НДС
+                    </td>
+                    <td>
+                        {{ calculated_data.total_nds_month }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        Итого с НДС
+                    </td>
+                    <td>
+                        {{ calculated_data.total_cost_month_nds }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        Сумма НДС в год: {{ calculated_data.total_nds_year }}<br>
+        Стоимость обслуживания в год: {{ calculated_data.total_cost }}<br>
+    </li>
+</ul>
+
+{% else %}
+<p>Нет данных для сохранения.</p>
+{% endif %}
+{% endblock %}

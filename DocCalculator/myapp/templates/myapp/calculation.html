@@ -1,0 +1,23 @@
+﻿{% extends 'myapp/index.html' %}
+
+{% block content %}
+<h2>Калькуляция</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+</form>
+
+<h3>Сохраненные калькуляции</h3>
+<ul>
+    {% for calculation in calculations %}
+    <li>
+        <strong>{{ calculation.date_created }} - </strong> <br>
+        Обслуживание узла учета с автоматической передачей данных: {{ calculation.service_node_modem }} <br>
+        Обслуживание узла учета без автоматической передачи данных: {{ calculation.service_node_no_modem }} <br>
+        Обслуживание узла учета до 4-х лет: {{ calculation.service_four_year_node }} <br>
+        Обслуживание узла автоматики: {{ calculation.automation_node }} <br>        
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

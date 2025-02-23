@@ -1,0 +1,14 @@
+﻿{% extends 'myapp/index.html' %}
+
+{% block content %}
+<h2>Добавить нового абонента</h2>
+
+<form action="{% url 'add_subscriber' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save-button">Сохранить</button>
+</form>
+
+<a href="{% url 'subscribers_db' %}" class="back-button">Назад к списку</a>
+
+{% endblock %}

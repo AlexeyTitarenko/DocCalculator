@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Рассчёт стоимости услуг ИТП</title>
+</head>
+
+<body>
+    <header>        
+        <nav>
+            <ul class="navigation-menu">
+                <li><a href="{% url 'home' %}">Статистика</a></li>
+                <li><a href="{% url 'calculation' %}">Калькуляция</a></li>
+                <li><a href="{% url 'calculate_all_contracts' %}">Стоимость всех договоров</a></li>
+                <li><a href="{% url 'calculate_single_contract' %}">Рассчитать новый договор</a></li>
+                <li><a href="{% url 'subscribers_db' %}">База абонентов</a></li>
+                <li><a href="{% url 'add_subscriber' %}">Добавить нового абонента</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1></h1>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+</body>
+
+</html>

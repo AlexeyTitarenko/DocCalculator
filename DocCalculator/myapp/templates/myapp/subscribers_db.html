@@ -1,0 +1,141 @@
+﻿{% extends 'myapp/index.html' %}
+
+{% block content %}
+<h2>Поиск абонентов</h2>
+<form method="get" action="{% url 'search_subscribers' %}">
+    <input type="text" name="q" value="{{ query }}" placeholder="Введите имя, номер договора или адрес">
+    <button type="submit">Найти</button>
+</form>
+
+{% if query %}
+<h2>Результаты поиска</h2>
+<p>Вы искали: "{{ query }}"</p>
+    {% if results %}
+<ul>
+    {% for subscriber in results %}
+    <li>
+        <details>
+            <summary>{{ subscriber.name }}</summary> <!-- Название организации в заголовке -->
+            <p><strong>Номер договора:</strong> {{ subscriber.contract_number }}</p>
+            <p><strong>Адрес:</strong> {{ subscriber.street }}, {{ subscriber.house }}</p>
+            <p><strong>Полное наименование:</strong> {{ subscriber.name }}</p>
+            <p><strong>Номер:</strong> {{ subscriber.i_number }}</p>
+            <p><strong>ФИО руководителя:</strong> {{ subscriber.fio }}</p>
+            <p><strong>ИНН:</strong> {{ subscriber.inn }}</p>
+            <p><strong>Стоимость годового обслуживания:</strong> {{ subscriber.total_cost }}</p>
+
+            <div class="flex-buttons">
+                <form action="{% url 'edit_subscriber' subscriber.id %}" method="get">
+                    <button type="submit">Изменить</button>
+                </form>
+                <form action="{% url 'delete_subscriber' subscriber.id %}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этого абонента?');">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </div>
+        </details>
+    </li>
+    {% endfor %}
+</ul>
+    {% else %}
+<p>Ничего не найдено.</p>
+    {% endif %}
+{% endif %}
+
+<h2>Список абонентов</h2>
+<ul>
+    {% for subscriber in subscribers %}
+    <li>
+        <details>
+            <summary>{{ subscriber.short_name }} {{ subscriber.contract_number }}</summary>
+            <p><strong>Полное наименование:</strong> {{ subscriber.name }}</p>
+            <p><strong>Номер договора:</strong> {{ subscriber.i_number }}</p>
+            <p><strong>ФИО руководителя:</strong> {{ subscriber.fio }}</p>
+            <p><strong>Должность руководителя:</strong> {{ subscriber.post }}</p>
+            <p><strong>Почтовый индекс:</strong> {{ subscriber.post_index }}</p>
+            <p><strong>Адрес:</strong> {{ subscriber.street }}, {{ subscriber.house }}</p>
+            <p><strong>ИНН:</strong> {{ subscriber.inn }}</p>
+            <p><strong>КПП:</strong> {{ subscriber.kpp }}</p>
+            <p><strong>ОГРН:</strong> {{subscriber.ogrn }}</p>
+            <p><strong>БИК:</strong> {{ subscriber.bik }}</p>
+            <p><strong>Расчетный счет:</strong> {{ subscriber.account_number }}</p>
+            <p><strong>Корр. счет</strong> {{ subscriber.corr_account }}</p>
+            <p><strong>Лицевой счет:</strong> {{ subscriber.l_number }}</p>
+            <p><strong>Наименование банка:</strong> {{subscriber.bank_name }}</p>
+            <p><strong>Стоимость годового обслуживания:</strong> {{ subscriber.total_cost }}</p>
+
+            {% if subscriber.hws_node_modem > 0 %}
+            <p><strong>Узел учета ГВС/общий с автоматической передачей данных:</strong> {{ subscriber.hws_node_modem }}</p>
+            {% endif %}
+
+            {% if subscriber.hws_node_modem_discount > 0 %}
+            <p><strong>Узел учета ГВС/общий с автоматической передачей данных со скидкой:</strong> {{ subscriber.hws_node_modem_discount }}</p>
+            {% endif %}
+
+            {% if subscriber.hws_node_no_modem > 0 %}
+            <p><strong>Узел учета ГВС/общий без автоматической передачи данных:</strong> {{ subscriber.hws_node_no_modem }}</p>
+            {% endif %}
+
+            {% if subscriber.hws_node_no_modem_discount > 0 %}
+            <p><strong>Узел учета ГВС/общий без автоматической передачи данных со скидкой:</strong> {{ subscriber.hws_node_no_modem_discount }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_node_modem > 0 %}
+            <p><strong>Узел учета отопления с автоматической передачей данных:</strong> {{ subscriber.heating_node_modem }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_node_modem_discount > 0 %}
+            <p><strong>Узел учета отопления с автоматической передачей данных со скидкой:</strong> {{ subscriber.heating_node_modem_discount }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_node_no_modem > 0 %}
+            <p><strong>Узел учета отопления без автоматической передачи данных:</strong> {{ subscriber.heating_node_no_modem }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_node_no_modem_discount > 0 %}
+            <p><strong>Узел учета отопления без автоматической передачи данных со скидкой:</strong> {{ subscriber.heating_node_no_modem_discount }}</p>
+            {% endif %}
+
+            {% if subscriber.hws_four_year_node > 0 %}
+            <p><strong>Узел учета Гвс/общий до 4-х лет:</strong> {{ subscriber.hws_four_year_node }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_four_year_node > 0 %}
+            <p><strong>Узел учета отопления до 4-х лет:</strong> {{ subscriber.heating_four_year_node }}</p>
+            {% endif %}
+
+            {% if subscriber.hws_automation_node > 0 %}
+            <p><strong>Узел автоматического регулирования ГВС:</strong> {{ subscriber.hws_automation_node }}</p>
+            {% endif %}
+
+            {% if subscriber.hws_automation_node_discount > 0 %}
+            <p><strong>Узел автоматического регулирования ГВС со скидкой:</strong> {{ subscriber.hws_automation_node_discount }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_automation_node > 0 %}
+            <p><strong>Узел автоматического регулирования от опления:</strong> {{ subscriber.heating_automation_node }}</p>
+            {% endif %}
+
+            {% if subscriber.heating_automation_node_discount > 0 %}
+            <p><strong>Узел автоматического регулирования от опления со скидкой:</strong> {{ subscriber.heating_automation_node_discount }}</p>
+            {% endif %}
+
+            <div class="flex-buttons">
+                <form action="{% url 'edit_subscriber' subscriber.id %}" method="get">
+                    <button type="submit">Изменить</button>
+                </form>
+                <form action="{% url 'delete_subscriber' subscriber.id %}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этого абонента?');">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </div>
+        </details>
+    </li>
+    {% endfor %}
+</ul>
+
+<form action="{% url 'calculate_all_contracts' %}" method="get">
+    <button type="submit">Рассчитать все договора</button>
+</form>
+
+{% endblock %}
